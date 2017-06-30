@@ -1,0 +1,150 @@
+#This is an overview of all the commands you need to properly configure the Raspberry Pi for SSH
+
+#Step 1: Change your password so that your RPi is more secure. Be sure to write down your new password in your notes
+passwd
+
+#Step 2: Run any updates
+sudo apt-get update
+
+#Step 3: Check that you are connected to the Internet. The following command should print 5 packets from google.com
+ping -c 5 google.com
+
+#Step 4: Install Apache
+sudo apt-get install apache2 -y
+
+#Step 5: Navigate to installation folder
+cd /var/www/
+
+#Step 6: Change permissions to enter and edit the html file
+sudo chown pi: html
+
+#Step 7: Navigate back to home folder
+cd
+
+#Step 8: Configure Access Point - Install server software onto RPi
+sudo apt-get install hostapd isc-dhcp-server
+
+#Step 9: Set up the DHCP Server - Edit the DHCP file
+sudo nano /etc/dhcp/dhcpd.conf
+
+  #Add a "#" in front of the following lines:
+  option domain-name "example.org";
+  option domain-name-servers ns1.example.org, ns2.example.org;
+  
+  #Fine the lines that say:
+  # If this DHCP server is the official DHCP server for the local
+  # network, the authoritative directive should be uncommented.
+  #authoritative;
+
+  #Remove the "#" in front of the following lines:
+  #authoritative;
+
+  #Add the following code at the bottom of the file:
+  subnet 192.168.42.0 netmask 255.255.255.0 {
+    range 192.168.42.10 192.168.42.50;
+    option broadcast-address 192.168.42.255;
+    option routers 192.168.42.1;
+    default-lease-time 600;
+    max-lease-time 7200;
+    option domain-name "local";
+    option domain-name-servers 8.8.8.8, 8.8.4.4;
+  }
+
+  #Save the file by typing "Control-X", then "Y" and "Enter"
+ 
+#Step 10: Set up the DHCP Server - Edit the default file for the DHCP server
+sudo nano /etc/default/isc-dhcp-server
+
+  #Scroll down to INTERFACES="" and change it to read INTERFACES="wlan0" (or whatever the name of your WiFi adapter is)
+
+#Step 11: Set up wlan0 for static IP
+sudo ifdown wlan0
+
+  #Set up the wlan0 connection to be static and incoming. Edit the following file:
+  nano /etc/network/interfaces
+  
+  #Edit the file so that it looks like this:
+  auto lo
+  
+  iface lo inet loopback
+  iface eth0 inet dhcp
+  
+  allow-hotplug wlan0
+  
+  iface wlan0 inet static
+    address 192.168.42.1
+    netmask 255.255.255.0
+    
+   #iface wlan0 inet manual
+   #wpa-roam /etc/wpa-supplicant/wpa_supplicant.conf
+   #iface default inet dhcp
+   
+   #Save the file and exit (Control-X Y)
+   
+   #Assign a static IP address to the wifi adapter by running:
+   sudo ifconfig wlan0 192.168.42.1
+   
+#Step 12: Configure Access Point
+sudo nano /etc/hostapd/hostapd.conf
+  
+  #Paste in the following exactly as-is (no extra spaces): 
+  interface=wlan0
+  #driver=rtl871xdrv
+  ssid=Pi_AP
+  country_code=US
+  hw_mode=g
+  channel=6
+  macaddr_acl=0
+  auth_algs=1
+  ignore_broadcast_ssid=0
+  #wpa=2
+  #wpa_passphrase=Raspberry
+  #wpa_key_mgmt=WPA-PSK
+  #wpa_pairwise=CCMP
+  #wpa_group_rekey=86400
+  ieee80211n=1
+  wme_enabled=1
+  
+  #To enable a password, remove the "#" in front of the 5 lines starting with "wpa" 
+  #Change the wpa_passphrase to whatever password you chose for your RPi
+  #You can change the network broadcast name by changing the text after "ssid"
+  
+  #Save and close
+  
+  #Tell the RPi where to find this configuration file:
+  sudo nano /etc/default/hostapd
+  
+  #Find the line "#DAEMON_CONF="" ", remove the "#" and edit it so it says:
+  DAEMON_CONF="/etc/hostapd/hostapd.conf"
+  
+  #Save and Close
+  
+#Step 13: Update hostapd
+wget http://adafruit-download.s3.amazonaws.com/adafruit_hostapd_14128.zip
+
+unzip adafruit_hostapd_14128.zip
+
+#Move old version out of the way:
+sudo mv /usr/sbin/hostapd /usr/sbin/hostapd.ORIG
+
+#Move new version back:
+sudo mv hostapd /usr/sbin
+
+#Set it up so it can be run
+sudo chown root:root /usr/sbin/hostapd
+sudo chmod 755 /usr/sbin/hostapd
+
+#Step 14: Finishing up by setting up a daemon - a program that starts everytime the RPi boots
+sudo update-rc.d hostapd enable 
+sudo update-rc.d isc-dhcp-server enable
+
+
+
+
+
+
+
+  
+
+
+  
