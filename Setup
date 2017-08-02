@@ -28,82 +28,82 @@ sudo apt-get install hostapd isc-dhcp-server
 sudo nano /etc/dhcp/dhcpd.conf
 
   #Add a "#" in front of the following lines:
-  option domain-name "example.org";
-  option domain-name-servers ns1.example.org, ns2.example.org;
+    option domain-name "example.org";
+    option domain-name-servers ns1.example.org, ns2.example.org;
   
-  #Fine the lines that say:
-  # If this DHCP server is the official DHCP server for the local
-  # network, the authoritative directive should be uncommented.
-  #authoritative;
+  #Find the lines that say:
+    # If this DHCP server is the official DHCP server for the local
+    # network, the authoritative directive should be uncommented.
+    #authoritative;
 
   #Remove the "#" in front of the following lines:
-  #authoritative;
+    #authoritative;
 
   #Add the following code at the bottom of the file:
-  subnet 192.168.42.0 netmask 255.255.255.0 {
-    range 192.168.42.10 192.168.42.50;
-    option broadcast-address 192.168.42.255;
-    option routers 192.168.42.1;
-    default-lease-time 600;
-    max-lease-time 7200;
-    option domain-name "local";
-    option domain-name-servers 8.8.8.8, 8.8.4.4;
-  }
+    subnet 192.168.42.0 netmask 255.255.255.0 {
+      range 192.168.42.10 192.168.42.50;
+      option broadcast-address 192.168.42.255;
+      option routers 192.168.42.1;
+      default-lease-time 600;
+      max-lease-time 7200;
+      option domain-name "local";
+      option domain-name-servers 8.8.8.8, 8.8.4.4;
+    }
 
   #Save the file by typing "Control-X", then "Y" and "Enter"
  
 #Step 10: Set up the DHCP Server - Edit the default file for the DHCP server
-sudo nano /etc/default/isc-dhcp-server
+  sudo nano /etc/default/isc-dhcp-server
 
   #Scroll down to INTERFACES="" and change it to read INTERFACES="wlan0" (or whatever the name of your WiFi adapter is)
 
 #Step 11: Set up wlan0 for static IP
-sudo ifdown wlan0
+  sudo ifdown wlan0
 
   #Set up the wlan0 connection to be static and incoming. Edit the following file:
-  nano /etc/network/interfaces
+    nano /etc/network/interfaces
   
   #Edit the file so that it looks like this:
-  auto lo
-  
-  iface lo inet loopback
-  iface eth0 inet dhcp
-  
-  allow-hotplug wlan0
-  
-  iface wlan0 inet static
-    address 192.168.42.1
-    netmask 255.255.255.0
-    
-   #iface wlan0 inet manual
-   #wpa-roam /etc/wpa-supplicant/wpa_supplicant.conf
-   #iface default inet dhcp
-   
+    auto lo
+
+    iface lo inet loopback
+    iface eth0 inet dhcp
+
+    allow-hotplug wlan0
+
+    iface wlan0 inet static
+      address 192.168.42.1
+      netmask 255.255.255.0
+
+     #iface wlan0 inet manual
+     #wpa-roam /etc/wpa-supplicant/wpa_supplicant.conf
+     #iface default inet dhcp
+
    #Save the file and exit (Control-X Y)
    
    #Assign a static IP address to the wifi adapter by running:
-   sudo ifconfig wlan0 192.168.42.1
+    sudo ifconfig wlan0 192.168.42.1
    
 #Step 12: Configure Access Point
-sudo nano /etc/hostapd/hostapd.conf
+  sudo nano /etc/hostapd/hostapd.conf
   
   #Paste in the following exactly as-is (no extra spaces): 
-  interface=wlan0
-  #driver=rtl871xdrv
-  ssid=Pi_AP
-  country_code=US
-  hw_mode=g
-  channel=6
-  macaddr_acl=0
-  auth_algs=1
-  ignore_broadcast_ssid=0
-  #wpa=2
-  #wpa_passphrase=Raspberry
-  #wpa_key_mgmt=WPA-PSK
-  #wpa_pairwise=CCMP
-  #wpa_group_rekey=86400
-  ieee80211n=1
-  wme_enabled=1
+    interface=wlan0
+    #driver=rtl871xdrv
+    ssid=Pi_AP
+    country_code=US
+    hw_mode=g
+    channel=6
+    macaddr_acl=0
+    auth_algs=1
+    ignore_broadcast_ssid=0
+    #wpa=2
+    #wpa_passphrase=Raspberry
+    #wpa_key_mgmt=WPA-PSK
+    #wpa_pairwise=CCMP
+    #wpa_group_rekey=86400
+    ieee80211n=1
+    wme_enabled=1
   
   #To enable a password, remove the "#" in front of the 5 lines starting with "wpa" 
   #Change the wpa_passphrase to whatever password you chose for your RPi
@@ -112,31 +112,31 @@ sudo nano /etc/hostapd/hostapd.conf
   #Save and close
   
   #Tell the RPi where to find this configuration file:
-  sudo nano /etc/default/hostapd
+   sudo nano /etc/default/hostapd
   
   #Find the line "#DAEMON_CONF="" ", remove the "#" and edit it so it says:
-  DAEMON_CONF="/etc/hostapd/hostapd.conf"
+    DAEMON_CONF="/etc/hostapd/hostapd.conf"
   
   #Save and Close
   
 #Step 13: Update hostapd
-wget http://adafruit-download.s3.amazonaws.com/adafruit_hostapd_14128.zip
+  wget http://adafruit-download.s3.amazonaws.com/adafruit_hostapd_14128.zip
 
-unzip adafruit_hostapd_14128.zip
+  unzip adafruit_hostapd_14128.zip
 
 #Move old version out of the way:
-sudo mv /usr/sbin/hostapd /usr/sbin/hostapd.ORIG
+  sudo mv /usr/sbin/hostapd /usr/sbin/hostapd.ORIG
 
 #Move new version back:
-sudo mv hostapd /usr/sbin
+  sudo mv hostapd /usr/sbin
 
 #Set it up so it can be run
-sudo chown root:root /usr/sbin/hostapd
-sudo chmod 755 /usr/sbin/hostapd
+  sudo chown root:root /usr/sbin/hostapd
+  sudo chmod 755 /usr/sbin/hostapd
 
 #Step 14: Finishing up by setting up a daemon - a program that starts everytime the RPi boots
-sudo update-rc.d hostapd enable 
-sudo update-rc.d isc-dhcp-server enable
+  sudo update-rc.d hostapd enable 
+  sudo update-rc.d isc-dhcp-server enable
 
 
 
