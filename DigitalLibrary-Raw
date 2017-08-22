@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Adafruit Free Digital Library</title>
+<style>
+div.img img {
+    width: 100%;
+    height: auto;
+}
+
+div.desc {
+    padding: 15px;
+    text-align: center;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.responsive {
+    padding: 0 2px;
+    float: left;
+    width: 24.99999%;
+}
+
+@media only screen and (max-width: 700px){
+    .responsive {
+        width: 49.99999%;
+        margin: 6px 0;
+    }
+}
+
+@media only screen and (max-width: 500px){
+    .responsive {
+        width: 100%;
+    }
+}
+
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+</style>
+</head>
+<body>
+
+<h2><center>
+    Adafruit Free Digital Library
+</center></h2>
+
+<div><center>
+  <p>This hotspot does not provide an internet connection. You can download any book provided and save to your device for viewing later.</p>
+  </center>
+</div>
+
+
+
+
+<div class="responsive">
+  <div class="img">
+  <a target="_top" href="issues/coloringbook_1-23-2014.pdf">
+    <img src="images/rforrobot.jpg" >
+  </a>
+  <div class="desc"><p>Ladyada's R is for Robotics is a coloring book adventure with robots, their inventors and more.</p>
+<p>Makers of all ages can learn, color and share their favorite robots and roboticists.</p>
+<a href="https://www.adafruit.com/products/1936" target="_blank">www.adafruit.com/products/1936</a></div>
+</div>
+</div>
+
+<div class="responsive">
+  <div class="img">
+  <a target="_top" href="issues/coloringbook_9-17-2012.pdf">
+    <img src="images/eforelectronics.jpg" >
+  </a>
+  <div class="desc"><p>Ladyada's "E is for Electronics" is a coloring book adventure with electronic components and their inventors.</p>
+<p>Makers of all ages can learn, color, and share common parts and historical figures throughout history. Explore the world of electronics with Ladyada as your guide!</p>
+<a href="https://www.adafruit.com/products/1000" target="_blank">www.adafruit.com/products/1000</a></div>
+</div>
+</div>
+
+
+</body>
+</html>
+
