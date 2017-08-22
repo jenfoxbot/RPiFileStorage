@@ -83,7 +83,11 @@ sudo nano /etc/dhcp/dhcpd.conf
    
    #Assign a static IP address to the wifi adapter by running:
     sudo ifconfig wlan0 192.168.42.1
-   
+
+#
+#NOTE: Access Point is not working properly w/ the RPi 3 -- skip steps 12 and 13 until this is resolved
+#
+
 #Step 12: Configure Access Point
   sudo nano /etc/hostapd/hostapd.conf
   
