@@ -1,30 +1,32 @@
-#This is an overview of all the commands you need to properly configure the Raspberry Pi for SSH
+#This is an overview of all the commands you need to properly configure the Raspberry Pi as an access point server.
 
-#Step 1: Change your password so that your RPi is more secure. Be sure to write down your new password in your notes
-passwd
-
-#Step 2: Run any updates
+#Step 1: Run updates
 sudo apt-get update
 
-#Step 3: Check that you are connected to the Internet. The following command should print 5 packets from google.com
+#Step 2: Check that you are connected to the Internet. The following command should print 5 packets from google.com
 ping -c 5 google.com
 
-#Step 4: Install Apache
+#Step 3: Install Apache
 sudo apt-get install apache2 -y
 
-#Step 5: Navigate to installation folder
+#Step 4: Navigate to installation folder
 cd /var/www/
 
-#Step 6: Change permissions to enter and edit the html file
+#Step 5: Change permissions to enter and edit the html file
 sudo chown pi: html
 
-#Step 7: Navigate back to home folder
+#Step 6: Navigate back to home folder
 cd
 
-#Step 8: Configure Access Point - Install server software onto RPi
+#Step 7: Install server software onto RPi
 sudo apt-get install hostapd isc-dhcp-server
 
-#Step 9: Set up the DHCP Server - Edit the DHCP file
+#Step 8: Install an iptables manager:
+sudo apt-get install iptables-persistent
+
+    #Say "yes" to both config screens (by typing "y")
+
+#Step 9: Set up the DHCP Server - Edit the DHCP file.
 sudo nano /etc/dhcp/dhcpd.conf
 
   #Add a "#" in front of the following lines:
@@ -57,7 +59,7 @@ sudo nano /etc/dhcp/dhcpd.conf
 
   #Scroll down to INTERFACES="" and change it to read INTERFACES="wlan0" (or whatever the name of your WiFi adapter is)
 
-#Step 11: Set up wlan0 for static IP
+#Step 11: Set up wlan0 for static IP.
   sudo ifdown wlan0
 
   #Set up the wlan0 connection to be static and incoming. Edit the following file:
@@ -84,16 +86,12 @@ sudo nano /etc/dhcp/dhcpd.conf
    #Assign a static IP address to the wifi adapter by running:
     sudo ifconfig wlan0 192.168.42.1
 
-#
-#NOTE: Access Point is not working properly w/ the RPi 3 -- skip steps 12 and 13 until this is resolved
-#
 
 #Step 12: Configure Access Point
   sudo nano /etc/hostapd/hostapd.conf
   
-  #Paste in the following exactly as-is (no extra spaces): 
+  #Write in the following exactly as-is (no extra spaces): 
     interface=wlan0
-    #driver=rtl871xdrv
     ssid=Pi_AP
     country_code=US
     hw_mode=g
@@ -123,22 +121,45 @@ sudo nano /etc/dhcp/dhcpd.conf
   
   #Save and Close
   
-#Step 13: Update hostapd
-  wget http://adafruit-download.s3.amazonaws.com/adafruit_hostapd_14128.zip
+  #Edit the initialization file for hostapd:
+    sudo nano /etc/init.d/hostapd
+    
+    #Find the line "DAEMON_CONF="" ", and edit it so it says:
+    DAEMON_CONF=/etc/hostapd/hostapd.conf
+  
+#Step 13: Configure Network Address Translation ("NAT") to allow multiple clients to connect to the Raspberry Pi WiFi:
+  #Edit the sysctl configuration file:
+    sudo nano /etc/sysctl.conf
+    
+    #Add the following to the end of the file:
+      net.ipv4,ip_forward=1
+    
+    #Exit and save the file.
+  
+  #Activate IP Forwarding:
+    sudo sh -c “echo 1 > /proc/sys/net/ipv4/ip_forward”
 
-  unzip adafruit_hostapd_14128.zip
+  #Create network translation between eth0 and wlan0:
+    sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+    sudo iptables -A FORWARD -i eth0 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT
+    sudo iptables -A FORWARD -i wlan0 -o eth0 -j ACCEPT
 
-#Move old version out of the way:
-  sudo mv /usr/sbin/hostapd /usr/sbin/hostapd.ORIG
+  #Ensure NAT happens on reboot:
+    sudo sh -c “iptables-save > /etc/iptables/rules.v4”
+  
 
-#Move new version back:
-  sudo mv hostapd /usr/sbin
+#Step 14: Test your access point.
+sudo /usr/sbin/hostapd /etc/hostapd/hostapd.conf
 
-#Set it up so it can be run
-  sudo chown root:root /usr/sbin/hostapd
-  sudo chmod 755 /usr/sbin/hostapd
+  #Check status of host AP server and DHCP server:
+    sudo service hostapd status
+    sudo service isc-dhcp-server status
 
-#Step 14: Finishing up by setting up a daemon - a program that starts everytime the RPi boots
+#Step 15: Finishing up by setting up a daemon - a program that starts everytime the RPi boots.
+sudo service hostapd start
+sudo service isc-dhcp-server start
+
+  #Run the following two commands:
   sudo update-rc.d hostapd enable 
   sudo update-rc.d isc-dhcp-server enable
 
