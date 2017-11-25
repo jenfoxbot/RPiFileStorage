@@ -92,7 +92,7 @@ sudo nano /etc/dhcp/dhcpd.conf
   
   #Write in the following exactly as-is (no extra spaces): 
     interface=wlan0
-    ssid=Pi_AP
+    ssid=HelloWorld
     country_code=US
     hw_mode=g
     channel=6
@@ -164,7 +164,7 @@ sudo service isc-dhcp-server start
   sudo update-rc.d isc-dhcp-server enable
 
 
-
+#Done! Go forth and create! If you need help w/ next steps, go to the "Server Website" folder
 
 
 
