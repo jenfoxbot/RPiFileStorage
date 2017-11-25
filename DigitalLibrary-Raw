@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Adafruit Free Digital Library</title>
+<title>Jenfoxbot's Local Web Server! </title>
 <style>
 div.img img {
     width: 100%;
@@ -48,40 +48,75 @@ div.desc {
 <body>
 
 <h2><center>
-    Adafruit Free Digital Library
+    jenfoxbot's Web Server!
 </center></h2>
+<h3><center>
+	Hosted on a Raspberry Pi :D
+</center></h3>
 
 <div><center>
-  <p>This hotspot does not provide an internet connection. You can download any book provided and save to your device for viewing later.</p>
+  <p>Depending on the position of the moon & stars*, this hotspot may or may not provide an Internet connection.  </p>
+  <p>If there IS an Internet connection, check out <a href="http://www.foxbotindustries.com">jenfoxbot's website</a> and learn about the other cool stuff she does!</p>
+  <p><i>*And by position of the moon & stars we mean the current whims of the builder, jenfoxbot :)</i></p>
   </center>
 </div>
 
 
-
-
 <div class="responsive">
   <div class="img">
-  <a target="_top" href="issues/coloringbook_1-23-2014.pdf">
-    <img src="images/rforrobot.jpg" >
+  <a target="_top" href="issues/SurvivalGuide.pdf">
+    <img src="images/TrashPanda.jpg" >
   </a>
-  <div class="desc"><p>Ladyada's R is for Robotics is a coloring book adventure with robots, their inventors and more.</p>
-<p>Makers of all ages can learn, color and share their favorite robots and roboticists.</p>
-<a href="https://www.adafruit.com/products/1936" target="_blank">www.adafruit.com/products/1936</a></div>
+  <div class="desc"><p>Lost in the woods? No need to be a trash panda! Here's a thorough survival guide!</p>
+<p><i>.. although unsure why you'd be in the woods w/ a computer, but that's your deal. Hope you brought a solar panel!</i></p>
+</div>
 </div>
 </div>
 
 <div class="responsive">
   <div class="img">
-  <a target="_top" href="issues/coloringbook_9-17-2012.pdf">
-    <img src="images/eforelectronics.jpg" >
+  <a target="_top" href="issues/DRIFTDarkMatter.pdf">
+    <img src="images/galaxy.jpg" >
   </a>
-  <div class="desc"><p>Ladyada's "E is for Electronics" is a coloring book adventure with electronic components and their inventors.</p>
-<p>Makers of all ages can learn, color, and share common parts and historical figures throughout history. Explore the world of electronics with Ladyada as your guide!</p>
-<a href="https://www.adafruit.com/products/1000" target="_blank">www.adafruit.com/products/1000</a></div>
+  <div class="desc"><p>Let's learn about Dark Matter! Yayyy physics & learning about the universe!!</p>
+<p><i>This is a publication jenfoxbot contributed to when she worked for the DRIFT dark matter detection collab!</i></p>
+</div>
+</div>
+</div>
+
+<div class="responsive">
+  <div class="img">
+  <a target="_top" href="issues/TheOdyssey.pdf">
+    <img src="images/teddybearReadingBook.jpg" >
+  </a>
+  <div class="desc"><p>For some light-hearted reading, here's the Odyssey by Homer</p>
+<p><i>Also because I bet Homer never could have imagined that his work would be stored on a thing called a computer the size of a credit card...</i></p>
+</div>
+</div>
+</div>
+
+<div class="responsive">
+  <div class="img">
+  <a target="_top" href="issues/1984.pdf">
+    <img src="images/HappyFunTimes.jpg" >
+  </a>
+  <div class="desc"><p>For those in the mood for a dystopian novel, here's the classic 1984 by George Orwell.</p>
+<p><i>Because it's always good to be vigilant about the rise of totalitarianism :) </i></p>
+</div>
+</div>
+</div>
+
+<div class="responsive">
+  <div class="img">
+  <a target="_top" href="issues/1984.pdf">
+    <img src="images/happyPanda.jpg" >
+  </a>
+  <div class="desc"><p>And finally, here's a full HTML resource guide!</p>
+<p><i>For editing your own web server without the full benefits of the Internets. </i></p>
+</div>
 </div>
 </div>
 
 
 </body>
 </html>
-
