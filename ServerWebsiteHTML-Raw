@@ -3,6 +3,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!--This is the title of your webpage that is displayed 
+on the top of the browser -->
 <title>Jenfoxbot's Local Web Server! </title>
 <style>
 div.img img {
@@ -47,6 +49,7 @@ div.desc {
 </head>
 <body>
 
+<!-- This is the heading at the top of the front page-->
 <h2><center>
     jenfoxbot's Web Server!
 </center></h2>
@@ -61,61 +64,32 @@ div.desc {
   </center>
 </div>
 
+<div><center>
+<div class="img">
+<table>
+  <tr>
+    <th>Helpful Information</th> 
+    <th>Books</th>
+    <th>Videos</th>
+  </tr>
+  <tr>
+    <td><a target="_top" href="internal/helpfulinfo.html"><img src="images/teddyBearInWoods.jpg" style="width:300px;height=300px"></a></td>
+    <td><a target="_top" href="internal/books.html"><img src="images/teddybearReadingBook.jpg" style="width:300px;height=300px"></a></td>
+    <td><a target="_top" href="internal/videos.html"><img src="images/teddybearwatchingtv.jpg" style="width:300px;height=300px"></a>  
+  <tr> 
+    <td>A handful of handy documents like a survival guide and an overview of HTML :) </td>   
+    <td>A few of my favorite books :D</td>
+    <td>And if you're feelin' like a good movie, here are... well, some of the things I could host on my Pi.</td>  
+</table>
+</div>
+</center></div>
 
-<div class="responsive">
-  <div class="img">
-  <a target="_top" href="issues/SurvivalGuide.pdf">
-    <img src="images/TrashPanda.jpg" >
-  </a>
-  <div class="desc"><p>Lost in the woods? No need to be a trash panda! Here's a thorough survival guide!</p>
-<p><i>.. although unsure why you'd be in the woods w/ a computer, but that's your deal. Hope you brought a solar panel!</i></p>
-</div>
-</div>
-</div>
-
-<div class="responsive">
-  <div class="img">
-  <a target="_top" href="issues/DRIFTDarkMatter.pdf">
-    <img src="images/galaxy.jpg" >
-  </a>
-  <div class="desc"><p>Let's learn about Dark Matter! Yayyy physics & learning about the universe!!</p>
-<p><i>This is a publication jenfoxbot contributed to when she worked for the DRIFT dark matter detection collab!</i></p>
-</div>
-</div>
-</div>
-
-<div class="responsive">
-  <div class="img">
-  <a target="_top" href="issues/TheOdyssey.pdf">
-    <img src="images/teddybearReadingBook.jpg" >
-  </a>
-  <div class="desc"><p>For some light-hearted reading, here's the Odyssey by Homer</p>
-<p><i>Also because I bet Homer never could have imagined that his work would be stored on a thing called a computer the size of a credit card...</i></p>
-</div>
-</div>
-</div>
-
-<div class="responsive">
-  <div class="img">
-  <a target="_top" href="issues/1984.pdf">
-    <img src="images/HappyFunTimes.jpg" >
-  </a>
-  <div class="desc"><p>For those in the mood for a dystopian novel, here's the classic 1984 by George Orwell.</p>
-<p><i>Because it's always good to be vigilant about the rise of totalitarianism :) </i></p>
-</div>
-</div>
-</div>
-
-<div class="responsive">
-  <div class="img">
-  <a target="_top" href="issues/1984.pdf">
-    <img src="images/happyPanda.jpg" >
-  </a>
-  <div class="desc"><p>And finally, here's a full HTML resource guide!</p>
-<p><i>For editing your own web server without the full benefits of the Internets. </i></p>
-</div>
-</div>
-</div>
+<div>
+<h3>About this Site</h3>
+<p>This website is a <strong>local web server</strong> that stores things I want to have access to if the Internet goes down. Or if I am traveling to a place with spotty WiFi and want to make sure I have access to certain books/documents. Or heck, if I'm moving and my ISP is taking its sweet time to get me hooked up to the Internet. Or, you know, if the weather decides that it is dismantling our cable infrastructure.</p>
+<p>There are tons of reasons why this local network would be helpful! Those are a few of mine.</p>
+<p>I also want to help folks get used to building web servers and hosting information so that we could ultimately build a public Internet!</p>
+<p>Heck yes, power to the people :)</p>
 
 
 </body>
