@@ -1,2 +1,4 @@
 # RPiFileStorage
-This is a repository for the workshop at the Living Computers: Museum + Labs on how to configure a Raspberry Pi computer as a remote file storage device. 
+This is a repository for converting your Pi (3) into a Wireless access point and web server! 
+
+For the full tutorial, visit: www.FoxBotIndustries.com
